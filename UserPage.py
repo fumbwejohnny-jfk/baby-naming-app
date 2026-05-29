@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from BabyNameClient import BabyNameClient
 from library.baby_library import convert_json_to_babies, search_baby_meaning
-from library.baby_stats_library import convert_json_to_babies_stats
-
+from library.baby_stats_library import convert_json_to_babies_stats, search_baby_name
 
 
 class UserPage(tk.Frame):
@@ -39,12 +38,11 @@ class UserPage(tk.Frame):
         self.meaning_label = tk.Label(self, text="", wraplength=800, justify="left")
         self.meaning_label.pack(pady=10)
 
-        self.chart_frame = tk.Frame(self)
-        self.chart_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        self.chart_frame = tk.Frame(self, bg="white", width=800, height=400)
+        self.chart_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
         # logout button
-        tk.Button(self, text="Logout", command=lambda: controller.show_frame(LoginPage)).pack()
-
+        # tk.Button(self, text="Logout", command=lambda: controller.show_frame(LoginPage)).pack()
         self.load_all_names()
 
     """Load all babies from local JSON file and display in the treeview."""
@@ -78,11 +76,11 @@ class UserPage(tk.Frame):
             return
         resp = {"status": "failed", "usage": []}  # Placeholder response
 
-        if not self.client.stats:
-            stats = convert_json_to_babies_stats("names/babies_stats.json")
-            self.client.stats = stats  # Store stats in client for later use in search
-        
-        resp = {"status": "success", "usage": self.client.stats} if len(self.client.stats) != 0 else resp
+        if not self.client.babies_stats:
+            stats = convert_json_to_babies_stats("names/stats.json")
+            self.client.babies_stats = stats  # Store stats in client for later use in search
+        data = search_baby_name(self.client.babies_stats, name)
+        resp = {"status": "success", "usage": data} if data else resp
         if resp['status'] != 'success' or not resp['usage']:
             messagebox.showinfo("No Data", "No usage data found for this name.")
             return
@@ -92,10 +90,11 @@ class UserPage(tk.Frame):
         male_data = list(filter(lambda x: x.gender == 'M', usage))
         female_data = list(filter(lambda x: x.gender == 'F', usage))
 
-        years_m = [d.yob for d in male_data]
-        counts_m = [d.ranking for d in male_data]
-        years_f = [d.yob for d in female_data]
-        counts_f = [d.ranking for d in female_data]
+        years_m = [int(d.yob) for d in male_data]
+        counts_m = [int(d.ranking) for d in male_data]
+
+        years_f = [int(d.yob) for d in female_data]
+        counts_f = [int(d.ranking) for d in female_data]
 
         total_m = sum(counts_m)
         total_f = sum(counts_f)
@@ -104,7 +103,9 @@ class UserPage(tk.Frame):
         for widget in self.chart_frame.winfo_children():
             widget.destroy()
 
+        # Create figure with 2 subplots
         fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+
         # LineChart
         if years_m:
             ax1.plot(years_m, counts_m, marker='o', label='Male', color='blue')
@@ -122,10 +123,18 @@ class UserPage(tk.Frame):
             ax2.set_title('Gender Distribution')
         else:
             ax2.text(0.5, 0.5, 'No data', ha='center')
+        
+        # Prevent overlapping of subplots
+        fig.tight_layout()
 
+        # Embed the matplotlib figure in Tkinter frame
         canvas = FigureCanvasTkAgg(fig, master=self.chart_frame)
         canvas.draw()
         canvas.get_tk_widget().pack(fill="both", expand=True)
+
+        # important
+        self.canvas = canvas  # Keep reference to prevent garbage collection
+        plt.close(fig)  # Close the figure to free memory
 
         # tk.Button(
         #     self,
