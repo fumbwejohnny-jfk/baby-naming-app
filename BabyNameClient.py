@@ -7,6 +7,8 @@ class BabyNameClient:
         self.role = None# Store JWT token after login for authenticated requests
         # self.refresh_token = None
         self.username = None
+        self.babies = []  # Store baby names data after fetching from server
+        self.babies_stats = {}  # Store baby name stats for charts
 
     def getUserInfo(self, resp):
         # self.access_token = resp.get("access")

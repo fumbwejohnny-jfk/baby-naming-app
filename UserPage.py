@@ -5,12 +5,16 @@ from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
+from BabyNameClient import BabyNameClient
+from library.baby_library import convert_json_to_babies, search_baby_meaning
+
 
 
 class UserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
+        self.client = BabyNameClient()
        
 
          # All data table
@@ -43,22 +47,25 @@ class UserPage(tk.Frame):
 
         self.load_all_names()
 
+    """Load all babies from local JSON file and display in the treeview."""
     def load_all_names(self):
         for item in self.tree.get_children():
             self.tree.delete(item)
-        resp = {"status": "failed", "data": []}  # Placeholder response'}
-        # self.client.send_request({'command': 'GET_ALL_NAMES'})
-        print(f"All Names: {resp}")
-        if resp['status'] == 'success':
-            for row in resp['data']:
-                self.tree.insert("", "end", values=(row['name'], row['meaning']))
+       
+        babies = convert_json_to_babies("names/babies.json")
+        self.client.babies = babies  # Store babies in client for later use in search
+        if babies:
+            for baby in babies:
+                self.tree.insert("", "end", values=(baby.name, baby.meaning))
 
+    """Show meaning of the searched name. Placeholder response is used here"""
     def show_meaning(self):
         name = self.search_entry.get().strip()
         if not name:
             return
         resp = {"status": "failed", "meaning": ""}  # Placeholder response
-        #self.client.send_request({'command': 'GET_MEANING', 'name': name})
+        meaning = search_baby_meaning(self.client.babies, name)
+        resp = {"status": "success", "meaning": meaning} if meaning else resp
         self.meaning_label.config(
             text=f"Meaning: {resp.get('meaning', 'Not found')}" if resp['status'] == 'success' else "Error")
 
