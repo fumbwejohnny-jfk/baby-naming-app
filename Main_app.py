@@ -9,7 +9,7 @@ class App(tk.Tk):
         super().__init__()
 
         self.title("Baby Name Application - Main")
-        self.geometry("400x300")
+        # self.geometry("400x300")
 
         # main container
         self.container = tk.Frame(self)

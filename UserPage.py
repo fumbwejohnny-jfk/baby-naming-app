@@ -41,7 +41,7 @@ class UserPage(tk.Frame):
         # logout button
         tk.Button(self, text="Logout", command=lambda: controller.show_frame(LoginPage)).pack()
 
-        # self.load_all_names()
+        self.load_all_names()
 
     def load_all_names(self):
         for item in self.tree.get_children():

@@ -1,11 +1,11 @@
 import tkinter as tk
 from BabyNameClient import BabyNameClient
 from tkinter import messagebox
-import requests
 from AdminPage import  AdminPage
 from UserPage import UserPage
 
-BASE_URL = "http://localhost:8000/api/v1/"  # Replace with your actual base URL
+admin = {"username": "Admin", "password": "admin123"}
+user = {"username": "User", "password": "user123"}
 
 class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -32,6 +32,20 @@ class LoginPage(tk.Frame):
         #button
         tk.Button(self, text="Login", command=self.login).pack(pady=10)
 
+    """This module contains functions to process login request and response."""
+    def process_login(self, req):
+        username = req["username"]
+        password = req["password"]
+        resp = None
+        if username == admin["username"] and password == admin["password"]:
+            resp = {"user": {"username": admin["username"], "is_admin": True}}
+        elif username == user["username"] and password == user["password"]:
+            resp = {"user": {"username": user["username"], "is_admin": False}}
+        else:
+            resp = {"detail": "Invalid username or password"}
+        return resp
+    
+    
     # Process login
     def login(self):
         req = {
@@ -39,7 +53,7 @@ class LoginPage(tk.Frame):
             "username": self.username_entry.get(),
             "password": self.password_entry.get()
         }
-        resp = requests.post(BASE_URL + "auth/login/", json=req).json()
+        resp = self.process_login(req)
         print(f"Login response: {self.client.username} — {resp}")  # Debug print to check response structure
 
         if resp.get('detail'):

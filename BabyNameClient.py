@@ -1,16 +1,16 @@
-import requests
+
 import tkinter as tk
 
 class BabyNameClient:
     def __init__(self):
-        self.access_token = None
+        # self.access_token = None
         self.role = None# Store JWT token after login for authenticated requests
-        self.refresh_token = None
+        # self.refresh_token = None
         self.username = None
 
     def getUserInfo(self, resp):
-        self.access_token = resp.get("access")
-        self.refresh_token = resp.get("refresh")
+        # self.access_token = resp.get("access")
+        # self.refresh_token = resp.get("refresh")
         user = resp.get("user")
         print(f"User info from response: {user}")  # Debug print to check user info structure
         self.username = user.get("username") if user else None  
