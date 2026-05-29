@@ -1,7 +1,7 @@
 import json
 import re
 from pathlib import Path
-from stat import Stat
+from library.stat import Stat
 
 """
 This module reads all .text files (yob1990.txt) from the specified folder,

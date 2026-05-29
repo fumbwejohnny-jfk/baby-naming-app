@@ -4,9 +4,9 @@ from tkinter import ttk
 from tkinter import messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
 from BabyNameClient import BabyNameClient
 from library.baby_library import convert_json_to_babies, search_baby_meaning
+from library.baby_stats_library import convert_json_to_babies_stats
 
 
 
@@ -54,6 +54,7 @@ class UserPage(tk.Frame):
        
         babies = convert_json_to_babies("names/babies.json")
         self.client.babies = babies  # Store babies in client for later use in search
+       
         if babies:
             for baby in babies:
                 self.tree.insert("", "end", values=(baby.name, baby.meaning))
@@ -64,30 +65,37 @@ class UserPage(tk.Frame):
         if not name:
             return
         resp = {"status": "failed", "meaning": ""}  # Placeholder response
+        
         meaning = search_baby_meaning(self.client.babies, name)
         resp = {"status": "success", "meaning": meaning} if meaning else resp
         self.meaning_label.config(
             text=f"Meaning: {resp.get('meaning', 'Not found')}" if resp['status'] == 'success' else "Error")
 
+    """Show usage charts for the searched name. Placeholder response is used here."""
     def show_charts(self):
         name = self.search_entry.get().strip()
         if not name:
             return
         resp = {"status": "failed", "usage": []}  # Placeholder response
-        #self.client.send_request({'command': 'GET_USAGE', 'name': name})
+
+        if not self.client.stats:
+            stats = convert_json_to_babies_stats("names/babies_stats.json")
+            self.client.stats = stats  # Store stats in client for later use in search
+        
+        resp = {"status": "success", "usage": self.client.stats} if len(self.client.stats) != 0 else resp
         if resp['status'] != 'success' or not resp['usage']:
             messagebox.showinfo("No Data", "No usage data found for this name.")
             return
 
         usage = resp['usage']
         # Functional grouping
-        male_data = list(filter(lambda x: x['gender'] == 'M', usage))
-        female_data = list(filter(lambda x: x['gender'] == 'F', usage))
+        male_data = list(filter(lambda x: x.gender == 'M', usage))
+        female_data = list(filter(lambda x: x.gender == 'F', usage))
 
-        years_m = [d['year'] for d in male_data]
-        counts_m = [d['count'] for d in male_data]
-        years_f = [d['year'] for d in female_data]
-        counts_f = [d['count'] for d in female_data]
+        years_m = [d.yob for d in male_data]
+        counts_m = [d.ranking for d in male_data]
+        years_f = [d.yob for d in female_data]
+        counts_f = [d.ranking for d in female_data]
 
         total_m = sum(counts_m)
         total_f = sum(counts_f)
@@ -119,8 +127,8 @@ class UserPage(tk.Frame):
         canvas.draw()
         canvas.get_tk_widget().pack(fill="both", expand=True)
 
-        tk.Button(
-            self,
-            text="Logout",
-            # command=lambda: controller.show_frame(LoginPage)
-        ).pack()
+        # tk.Button(
+        #     self,
+        #     text="Logout",
+        #     # command=lambda: controller.show_frame(LoginPage)
+        # ).pack()
