@@ -10,27 +10,31 @@ user = {"username": "User", "password": "user123"}
 class LoginPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
-        self.controller = controller
         
-        
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
+        content = tk.Frame(self)
+        content.grid(row=0, column=0)        
         # parent.title("Baby Name Application - Login")
         # self.geometry("400x250")
         self.client = BabyNameClient()
         # self.client.connect()
 
         # username
-        tk.Label(self, text="Baby Name ", font=("Arial", 16)).pack(pady=10)
-        tk.Label(self, text="Username:").pack()
-        self.username_entry = tk.Entry(self)
+        tk.Label(content, text="Baby Name ", font=("Arial", 16)).pack(pady=10)
+        tk.Label(content, text="Username:").pack()
+        self.username_entry = tk.Entry(content)
         self.username_entry.pack()
 
         # password
-        tk.Label(self, text="Password:").pack()
-        self.password_entry = tk.Entry(self, show="*")
+        tk.Label(content, text="Password:").pack()
+        self.password_entry = tk.Entry(content, show="*")
         self.password_entry.pack()
 
         #button
-        tk.Button(self, text="Login", command=self.login).pack(pady=10)
+        tk.Button(content, text="Login", command=self.login).pack(pady=10)
+        
 
     """This module contains functions to process login request and response."""
     def process_login(self, req):

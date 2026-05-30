@@ -13,6 +13,8 @@ class App(tk.Tk):
 
         # main container
         self.container = tk.Frame(self)
+        self.container.grid_rowconfigure(0, weight=1)
+        self.container.grid_columnconfigure(0, weight=1)
         self.container.pack(fill="both", expand=True)
 
         self.frames = {}

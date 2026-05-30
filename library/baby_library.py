@@ -1,5 +1,4 @@
 import re
-from zipfile import Path
 import json
 import csv
 from library.baby import Baby
@@ -72,7 +71,7 @@ def search_baby_meaning(babies, name):
  Example: "Form of John" -> search for "John" and add "Form of" to the end of the meaning
 """
 def meaning_with_form_of(babies, baby):
-    if  "form of" in baby.meaning.lower():
+    if  re.search(r"\bform of\b", baby.meaning.lower()):
         text = baby.meaning.lower().split("of")[-1].split(' ')[-1]
         baby.meaning = search_baby_meaning(babies, text)
 """
@@ -81,7 +80,7 @@ Example: "From John" -> search for "John" and add "From" to the end of the meani
 """
 def meaning_with_2_names(babies, baby):
     if baby.meaning.lower().startswith("from"):
-        if "and" in baby.meaning.lower():
+        if re.search(r"\band\b", baby.meaning.lower()):
             parts = baby.meaning.lower().split("and")
             meanings = []
             for part in parts:

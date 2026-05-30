@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from BabyNameClient import BabyNameClient
@@ -18,27 +19,27 @@ class UserPage(tk.Frame):
 
          # All data table
         tk.Label(self, text="All Baby Names", font=("Arial", 12)).pack(pady=5)
-        self.tree = ttk.Treeview(self, columns=("name", "meaning"), show="headings", height=8)
+        self.tree = ttk.Treeview(self, columns=("name", "meaning"), show="headings", height=12)
         self.tree.heading("name", text="Name")
         self.tree.heading("meaning", text="Meaning")
         self.tree.pack(fill="x", padx=10)
-        tk.Button(self, text="Refresh Names List", command=self.load_all_names).pack(pady=5)
+        tk.Button(self, text="Refresh Names List", command=self.load_all_names).pack(pady=10)
 
         # Search section
         tk.Label(self, text="Search by Name", font=("Arial", 12)).pack(pady=(20, 5))
-        self.search_entry = tk.Entry(self, width=30)
+        self.search_entry = tk.Entry(self, width=40)
         self.search_entry.pack()
 
         btn_frame = tk.Frame(self)
-        btn_frame.pack(pady=10)
-        tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", padx=5)
-        tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", padx=5)
+        btn_frame.pack(pady=15)
+        tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", padx=10)
+        tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", padx=10)
 
         # Result area
         self.meaning_label = tk.Label(self, text="", wraplength=800, justify="left")
         self.meaning_label.pack(pady=10)
 
-        self.chart_frame = tk.Frame(self, bg="white", width=800, height=400)
+        self.chart_frame = tk.Frame(self, bg="white", width=1000, height=500)
         self.chart_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
         # logout button
@@ -72,7 +73,7 @@ class UserPage(tk.Frame):
     """Show usage charts for the searched name. Placeholder response is used here."""
     def show_charts(self):
         name = self.search_entry.get().strip()
-        if not name:
+        if not name or search_baby_meaning(self.client.babies, name) is None:
             return
         resp = {"status": "failed", "usage": []}  # Placeholder response
 
@@ -104,25 +105,39 @@ class UserPage(tk.Frame):
             widget.destroy()
 
         # Create figure with 2 subplots
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+       # BarChart
+        bar_width = 0.8
 
-        # LineChart
         if years_m:
-            ax1.plot(years_m, counts_m, marker='o', label='Male', color='blue')
-        if years_f:
-            ax1.plot(years_f, counts_f, marker='o', label='Female', color='pink')
-        ax1.set_title(f'Usage of "{name}" Over Years')
-        ax1.set_xlabel('Year')
-        ax1.set_ylabel('Count')
-        ax1.legend()
-        ax1.grid(True)
+            ax1.bar(
+            np.array(years_m) - bar_width / 2,
+            counts_m,
+            width=bar_width,
+            label='Male',
+            color='blue'
+        )
 
-        # PieChart
-        if total_m + total_f > 0:
-            ax2.pie([total_m, total_f], labels=['Male', 'Female'], autopct='%1.1f%%', colors=['blue', 'pink'])
-            ax2.set_title('Gender Distribution')
-        else:
-            ax2.text(0.5, 0.5, 'No data', ha='center')
+        if years_f:
+            ax1.bar(
+                np.array(years_f) + bar_width / 2,
+                counts_f,
+                width=bar_width,
+                label='Female',
+                color='pink'
+            )
+            ax1.set_title(f'Usage of "{name}" Over Years')
+            ax1.set_xlabel('Year')
+            ax1.set_ylabel('Count')
+            ax1.legend()
+            ax1.grid(True)
+
+            # PieChart
+            if total_m + total_f > 0:
+                ax2.pie([total_m, total_f], labels=['Male', 'Female'], autopct='%1.1f%%', colors=['blue', 'pink'])
+                ax2.set_title('Gender Distribution')
+            else:
+                ax2.text(0.5, 0.5, 'No data', ha='center')
         
         # Prevent overlapping of subplots
         fig.tight_layout()

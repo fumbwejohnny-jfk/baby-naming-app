@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # convert_txt_to_json('names', stat_json_file)
     babies = convert_json_to_babies(baby_json_file)
     stats = convert_json_to_babies_stats(stat_json_file)
-    name_to_search = "Adrienne"
+    name_to_search = "sandra"
     print(f"Meaning of baby name '{name_to_search}':", search_baby_meaning(babies,  name_to_search))
 
     print(f'---------------------------------------------------------------------------------', end='\n\n')
