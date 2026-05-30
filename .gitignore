@@ -4,9 +4,8 @@ public/
 __pycache__/
 *.py[cod]
 *$py.class
-*.txt
-.json
-.pdf
+*.json
+*.pdf
 
 # C extensions
 *.so
