@@ -16,11 +16,7 @@ class LoginPage(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        content = tk.Frame(self, bg="#d9d9d9",
-    bd=4,
-    relief="solid",
-    padx=50,
-    pady=50)
+        content = tk.Frame(self, bg="#d9d9d9", bd=4, relief="solid", padx=50,  pady=50)
         content.grid(row=0, column=0)        
         # parent.title("Baby Name Application - Login")
         # self.geometry("400x250")
@@ -32,16 +28,18 @@ class LoginPage(tk.Frame):
         username_frame = tk.Frame(content)
         username_frame.pack(pady=5)
         tk.Label(username_frame, text="Username:", font=("Arial", 14)).grid(row=0, column=0, sticky="w")
-        self.username_entry= tk.Entry(username_frame, font=("Arial", 16))
-        self.username_entry.grid(row=0, column=1, padx=5, ipady=5)
+        self.username_entry= tk.Entry(username_frame, font=("Arial", 14))
+        self.username_entry.grid(row=0, column=1, padx=5, ipady=5, ipadx=5)
+        self.username_entry.insert(0, "User")  # Default value for testing
         username_frame.pack(pady=5)
 
         # password
         password_frame = tk.Frame(content)
         password_frame.pack(pady=5)
         tk.Label(password_frame, text="Password: ", font=("Arial", 14)).grid(row=0, column=0, sticky="w")
-        self.password_entry = tk.Entry(password_frame, show="*", font=("Arial", 16))
+        self.password_entry = tk.Entry(password_frame, show="*", font=("Arial", 14))
         self.password_entry.grid(row=0, column=1,ipady=5)
+        self.password_entry.insert(0, "user123")  # Default value for testing
         password_frame.pack()
 
         #button

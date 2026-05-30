@@ -23,31 +23,33 @@ class UserPage(tk.Frame):
        
 
          # All data table
-        tk.Label(content, text="All Baby Names", font=("Arial", 12)).pack(pady=5)
-        self.tree = ttk.Treeview(content, columns=("name", "meaning"), show="headings", height=16)
+        tk.Label(content, text="All Baby Names with their meanings", font=("Arial", 14)).pack(pady=5)
+        self.tree = ttk.Treeview(content, columns=("name", "meaning"), show="headings")
+        self.tree.column("name", width=200, anchor="w")
+        self.tree.column("meaning", width=400, anchor="w")
         self.tree.heading("name", text="Name")
         self.tree.heading("meaning", text="Meaning")
-        self.tree.pack(fill="x", padx=10, pady=5)
-        tk.Button(content, text="Refresh Names List", command=self.load_all_names).pack(pady=10)
+        self.tree.pack( padx=10, pady=5)
+        tk.Button(content, text="Refresh Names List", command=self.load_all_names).pack(ipady=10)
 
         # Search section
         search_frame = tk.Frame(content)
         search_frame.pack(pady=20)
-        tk.Label(search_frame, text="Search by Name", font=("Arial", 12)).grid(row=0, column=0, padx=5, rowspan=2)
-        self.search_entry = tk.Entry(search_frame, font=("Arial", 16))
-        self.search_entry.grid(row=0, column=1, padx=5)
+        tk.Label(search_frame, text="Search by Name", font=("Arial", 13)).grid(row=0, column=0, padx=5)
+        self.search_entry = tk.Entry(search_frame, font=("Arial", 14))
+        self.search_entry.grid(row=0, column=1, padx=5, ipady=3)
 
         btn_frame = tk.Frame(content)
         btn_frame.pack(pady=15)
-        tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", padx=10)
-        tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", padx=10)
+        tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", ipady=10, padx=5)
+        tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", ipady=10, padx=5)
 
         # Result area
         self.meaning_label = tk.Label(content, text="", wraplength=800, justify="left")
         self.meaning_label.pack(pady=10)
 
-        self.chart_frame = tk.Frame(content, bg="white", width=1000, height=500)
-        self.chart_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        self.chart_frame = tk.Frame(content, bg="white", width=1000, height=400)
+        self.chart_frame.pack(fill="both", expand=True, padx=20, pady=20,ipadx=10, ipady=10)
 
         # logout button
         # tk.Button(content, text="Logout", command=lambda: controller.show_frame(LoginPage)).pack()
@@ -137,7 +139,7 @@ class UserPage(tk.Frame):
             ax1.set_xlabel('Year')
             ax1.set_ylabel('Count')
             ax1.legend()
-            ax1.grid(True)
+            ax1.grid(False)
 
             # PieChart
             if total_m + total_f > 0:
