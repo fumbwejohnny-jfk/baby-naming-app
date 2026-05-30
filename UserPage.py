@@ -15,35 +15,42 @@ class UserPage(tk.Frame):
         super().__init__(parent)
         self.controller = controller
         self.client = BabyNameClient()
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
+        content = tk.Frame(self)
+        content.grid(row=0, column=0, sticky="nsew")
        
 
          # All data table
-        tk.Label(self, text="All Baby Names", font=("Arial", 12)).pack(pady=5)
-        self.tree = ttk.Treeview(self, columns=("name", "meaning"), show="headings", height=12)
+        tk.Label(content, text="All Baby Names", font=("Arial", 12)).pack(pady=5)
+        self.tree = ttk.Treeview(content, columns=("name", "meaning"), show="headings", height=16)
         self.tree.heading("name", text="Name")
         self.tree.heading("meaning", text="Meaning")
-        self.tree.pack(fill="x", padx=10)
-        tk.Button(self, text="Refresh Names List", command=self.load_all_names).pack(pady=10)
+        self.tree.pack(fill="x", padx=10, pady=5)
+        tk.Button(content, text="Refresh Names List", command=self.load_all_names).pack(pady=10)
 
         # Search section
-        tk.Label(self, text="Search by Name", font=("Arial", 12)).pack(pady=(20, 5))
-        self.search_entry = tk.Entry(self, width=40)
-        self.search_entry.pack()
+        search_frame = tk.Frame(content)
+        search_frame.pack(pady=20)
+        tk.Label(search_frame, text="Search by Name", font=("Arial", 12)).grid(row=0, column=0, padx=5, rowspan=2)
+        self.search_entry = tk.Entry(search_frame, font=("Arial", 16))
+        self.search_entry.grid(row=0, column=1, padx=5)
 
-        btn_frame = tk.Frame(self)
+        btn_frame = tk.Frame(content)
         btn_frame.pack(pady=15)
         tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", padx=10)
         tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", padx=10)
 
         # Result area
-        self.meaning_label = tk.Label(self, text="", wraplength=800, justify="left")
+        self.meaning_label = tk.Label(content, text="", wraplength=800, justify="left")
         self.meaning_label.pack(pady=10)
 
-        self.chart_frame = tk.Frame(self, bg="white", width=1000, height=500)
+        self.chart_frame = tk.Frame(content, bg="white", width=1000, height=500)
         self.chart_frame.pack(fill="both", expand=True, padx=20, pady=20)
 
         # logout button
-        # tk.Button(self, text="Logout", command=lambda: controller.show_frame(LoginPage)).pack()
+        # tk.Button(content, text="Logout", command=lambda: controller.show_frame(LoginPage)).pack()
         self.load_all_names()
 
     """Load all babies from local JSON file and display in the treeview."""
@@ -124,7 +131,7 @@ class UserPage(tk.Frame):
                 counts_f,
                 width=bar_width,
                 label='Female',
-                color='pink'
+                color='orange'
             )
             ax1.set_title(f'Usage of "{name}" Over Years')
             ax1.set_xlabel('Year')
@@ -134,7 +141,7 @@ class UserPage(tk.Frame):
 
             # PieChart
             if total_m + total_f > 0:
-                ax2.pie([total_m, total_f], labels=['Male', 'Female'], autopct='%1.1f%%', colors=['blue', 'pink'])
+                ax2.pie([total_m, total_f], labels=['Male', 'Female'], autopct='%1.1f%%', colors=['blue', 'orange'])
                 ax2.set_title('Gender Distribution')
             else:
                 ax2.text(0.5, 0.5, 'No data', ha='center')

@@ -17,15 +17,20 @@ class App(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
         self.container.pack(fill="both", expand=True)
 
+        # dictionary to hold different frames
         self.frames = {}
 
+        # initialize all frames and store in the dictionary
         for F in (LoginPage, AdminPage, UserPage):
             frame = F(self.container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
+        # start with the login page
         self.show_frame(LoginPage)
 
+
+    """Function to raise the specified frame to the top for display."""
     def show_frame(self, frame_class):
         frame = self.frames[frame_class]
         frame.tkraise()
