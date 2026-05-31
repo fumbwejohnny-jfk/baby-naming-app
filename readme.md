@@ -78,3 +78,14 @@ A parent wants to evaluate the name “Liam”
 * **UI Options:** 
   * Tkinter / PyQt (desktop) 
   * Numpy, matplotlib
+
+
+│
+├── backend/
+│   ├── baby_names/          # Django project config
+│   ├── core/                # Main app
+│   ├── users/               # Auth/roles (optional split)
+│   ├── manage.py
+│   └── requirements.txt
+│
+c
