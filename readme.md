@@ -1,4 +1,4 @@
-# 🚀 Name Intelligence Platform
+# 🚀 Baby Name Intelligence Platform
 
 ## 🧠 1. Overview
 This application assists prospective parents in selecting meaningful and well-informed names for their future children.
