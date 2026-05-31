@@ -36,13 +36,11 @@ class UserPage(tk.Frame):
         search_section = tk.Frame(content)
         search_frame = tk.Frame(search_section)
         search_frame.grid(row=0, column=0, pady=10)
-        search_frame.pack(pady=20)
         tk.Label(search_frame, text="Search by Name", font=("Arial", 13)).grid(row=0, column=0, padx=5)
         self.search_entry = tk.Entry(search_frame, font=("Arial", 14))
         self.search_entry.grid(row=0, column=1, padx=5, ipady=3)
 
         btn_frame = tk.Frame(search_section)
-        btn_frame.pack(pady=15)
         tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", ipady=10, padx=5)
         tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", ipady=10, padx=5)
         btn_frame.grid(row=0, column=1, pady=10)

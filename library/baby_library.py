@@ -63,7 +63,7 @@ def search_baby_meaning(babies, name):
     for baby in babies:
         if baby.name.lower() == name.lower():
             meaning_with_form_of(babies, baby)
-            meaning_with_2_names(babies, baby)
+            meaning_with_2_names(babies, baby, name)
             return baby.meaning
     return None
 
@@ -81,7 +81,7 @@ def meaning_with_form_of(babies, baby):
 Example: "From John" -> search for "John" and add "From" to the end of the meaning
 "From John and Jane" -> search for "John" and "Jane" and add "From" to the end of the meaning
 """
-def meaning_with_2_names(babies, baby):
+def meaning_with_2_names(babies, baby, name):
     if baby.meaning.lower().startswith("from"):
         if re.search(r"\band\b", baby.meaning.lower()):
             parts = baby.meaning.lower().split("and")
@@ -91,7 +91,9 @@ def meaning_with_2_names(babies, baby):
                 if meaning:
                     meanings.append(meaning)
             baby.meaning = "From " + " and ".join(meanings)
-        else:    
+        else: 
+            if name == baby.meaning.lower().split("from")[-1].strip().split(' ')[-1]:
+                return baby.meaning   
             baby.meaning = search_baby_meaning(babies, baby.meaning.split(' ')[-1])
 
 
