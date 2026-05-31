@@ -74,18 +74,42 @@ A parent wants to evaluate the name “Liam”
 
 ## 🛠️ 5. Technology Stack
 * **Language:** Python 
-* **Database:** PostgreSQL 
 * **UI Options:** 
   * Tkinter / PyQt (desktop) 
   * Numpy, matplotlib
 
-
+## 🛠️ 6. Project Structure
 │
-├── backend/
-│   ├── baby_names/          # Django project config
-│   ├── core/                # Main app
-│   ├── users/               # Auth/roles (optional split)
-│   ├── manage.py
+├── babay-app/
+│   ├── library/                    # utility functions
+│       └── stat.py
+│       └── baby.py
+│       └── baby_library.py
+│       └── baby_stats_library.py
+│   ├── model/                      # baby model
+│       └── babyName.py                      
+│   ├── names/                      # folder containing .txt and .csv files
+│   ├── pages/                      # app's pages
+│       └── AdminPage.py
+│       └── LoginPage.py
+│       └── MainPage.py
+│       └── UserPage.py
 │   └── requirements.txt
+│   └── generate.sh                 # script to generate JSON files
+│   └── run.sh                      # script to run the app
+│   └── readme.sh
 │
-c
+
+## 🛠️ 7. How to run the Baby-app
+1. Clone the repository
+   git clone <repository-url>
+   cd repository
+2. Create and activate virtual environment
+   python3 -m venv venv             (create python environment)
+   source venv/bin/activate         (activate python environment in linux/bash/ubuntu)  
+   or venv\Scripts\activate         (activate python environement in windows) 
+3. Install dependencies
+   pip install -r requirements.txt  (install python packages)
+4. ./generate.sh                    (script to generate JSON files)
+5. ./run.sh                         (script to run baby-app)
+
