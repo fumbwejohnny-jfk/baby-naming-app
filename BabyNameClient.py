@@ -14,7 +14,6 @@ class BabyNameClient:
         # self.access_token = resp.get("access")
         # self.refresh_token = resp.get("refresh")
         user = resp.get("user")
-        print(f"User info from response: {user}")  # Debug print to check user info structure
         self.username = user.get("username") if user else None  
         self.role = 'Admin' if user.get("is_admin") else 'User'
         

@@ -1,6 +1,6 @@
 import tkinter as tk
 from BabyNameClient import BabyNameClient
-from tkinter import Label, messagebox
+from tkinter import  messagebox
 from AdminPage import  AdminPage
 from UserPage import UserPage
 
@@ -16,6 +16,7 @@ class LoginPage(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
+        # border
         content = tk.Frame(self, bg="#d9d9d9", bd=4, relief="solid", padx=50,  pady=50)
         content.grid(row=0, column=0)        
         # parent.title("Baby Name Application - Login")

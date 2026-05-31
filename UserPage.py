@@ -23,7 +23,7 @@ class UserPage(tk.Frame):
        
 
          # All data table
-        tk.Label(content, text="All Baby Names with their meanings", font=("Arial", 14)).pack(pady=5)
+        tk.Label(content, text="All Baby Names with their meanings", font=("Arial", 20)).pack(pady=5)
         self.tree = ttk.Treeview(content, columns=("name", "meaning"), show="headings")
         self.tree.column("name", width=200, anchor="w")
         self.tree.column("meaning", width=400, anchor="w")
@@ -33,19 +33,24 @@ class UserPage(tk.Frame):
         tk.Button(content, text="Refresh Names List", command=self.load_all_names).pack(ipady=10)
 
         # Search section
-        search_frame = tk.Frame(content)
+        search_section = tk.Frame(content)
+        search_frame = tk.Frame(search_section)
+        search_frame.grid(row=0, column=0, pady=10)
         search_frame.pack(pady=20)
         tk.Label(search_frame, text="Search by Name", font=("Arial", 13)).grid(row=0, column=0, padx=5)
         self.search_entry = tk.Entry(search_frame, font=("Arial", 14))
         self.search_entry.grid(row=0, column=1, padx=5, ipady=3)
 
-        btn_frame = tk.Frame(content)
+        btn_frame = tk.Frame(search_section)
         btn_frame.pack(pady=15)
         tk.Button(btn_frame, text="Show Meaning", command=self.show_meaning).pack(side="left", ipady=10, padx=5)
         tk.Button(btn_frame, text="Show Usage Charts", command=self.show_charts).pack(side="left", ipady=10, padx=5)
+        btn_frame.grid(row=0, column=1, pady=10)
+        search_section.pack()
 
         # Result area
-        self.meaning_label = tk.Label(content, text="", wraplength=800, justify="left")
+        self.meaning_label = tk.Label(content, text="Meaning will be displayed here", wraplength=800, font=("Arial", 12),
+                                      justify="left", bg="#f0f0f0", bd=2, relief="groove", padx=10, pady=10)
         self.meaning_label.pack(pady=10)
 
         self.chart_frame = tk.Frame(content, bg="white", width=1000, height=400)
@@ -77,7 +82,7 @@ class UserPage(tk.Frame):
         meaning = search_baby_meaning(self.client.babies, name)
         resp = {"status": "success", "meaning": meaning} if meaning else resp
         self.meaning_label.config(
-            text=f"Meaning: {resp.get('meaning', 'Not found')}" if resp['status'] == 'success' else "Error")
+            text=f"{resp.get('meaning', 'Not found')}" if resp['status'] == 'success' else "Error")
 
     """Show usage charts for the searched name. Placeholder response is used here."""
     def show_charts(self):

@@ -67,6 +67,7 @@ def search_baby_meaning(babies, name):
             return baby.meaning
     return None
 
+
 """
  Example: "Form of John" -> search for "John" and add "Form of" to the end of the meaning
 """
@@ -74,6 +75,8 @@ def meaning_with_form_of(babies, baby):
     if  re.search(r"\bform of\b", baby.meaning.lower()):
         text = baby.meaning.lower().split("of")[-1].split(' ')[-1]
         baby.meaning = search_baby_meaning(babies, text)
+
+
 """
 Example: "From John" -> search for "John" and add "From" to the end of the meaning
 "From John and Jane" -> search for "John" and "Jane" and add "From" to the end of the meaning
