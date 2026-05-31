@@ -24,27 +24,27 @@ class LoginPage(tk.Frame):
         self.client = BabyNameClient()
         # self.client.connect()
 
-        tk.Label(content, text="Baby Name ", font=("Arial", 30), fg="blue", bg="#d9d9d9").pack(pady=20)
+        tk.Label(content, text="Baby Name ", font=("Arial", 30), fg="blue", bg="#d9d9d9").pack(pady=(0,50))
         # username
         username_frame = tk.Frame(content)
-        username_frame.pack(pady=5)
+        username_frame.pack(pady=(0,30))
         tk.Label(username_frame, text="Username:", font=("Arial", 14)).grid(row=0, column=0, sticky="w")
         self.username_entry= tk.Entry(username_frame, font=("Arial", 14))
         self.username_entry.grid(row=0, column=1, padx=5, ipady=5, ipadx=5)
-        self.username_entry.insert(0, "User")  # Default value for testing
-        username_frame.pack(pady=5)
+        self.username_entry.insert(5, "User")  # Default value for testing
+
 
         # password
         password_frame = tk.Frame(content)
-        password_frame.pack(pady=5)
+        password_frame.pack(pady=(0,30))
         tk.Label(password_frame, text="Password: ", font=("Arial", 14)).grid(row=0, column=0, sticky="w")
         self.password_entry = tk.Entry(password_frame, show="*", font=("Arial", 14))
-        self.password_entry.grid(row=0, column=1,ipady=5)
-        self.password_entry.insert(0, "user123")  # Default value for testing
-        password_frame.pack()
+        self.password_entry.grid(row=0, column=1,ipady=5, padx=5, ipadx=5,)
+        self.password_entry.insert(5, "user123")  # Default value for testing
+       
 
         #button
-        tk.Button(content, text="Login", font=("Arial", 16), cursor="hand2", command=self.login).pack(pady=20, ipadx=10, ipady=5)
+        tk.Button(content, text="Login", font=("Arial", 16), cursor="hand2", command=self.login).pack(pady=20, ipadx=10, ipady=5, side="right")
         
 
     """This module contains functions to process login request and response."""

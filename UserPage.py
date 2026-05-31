@@ -47,7 +47,7 @@ class UserPage(tk.Frame):
         search_section.pack()
 
         # Result area
-        self.meaning_label = tk.Label(content, text="Meaning will be displayed here", wraplength=800, font=("Arial", 12),
+        self.meaning_label = tk.Label(content, text="Meaning will be displayed here", wraplength=800, font=("Arial", 12), fg="green",
                                       justify="left", bg="#f0f0f0", bd=2, relief="groove", padx=10, pady=10)
         self.meaning_label.pack(pady=10)
 
