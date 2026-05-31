@@ -78,38 +78,62 @@ A parent wants to evaluate the name “Liam”
   * Tkinter / PyQt (desktop) 
   * Numpy, matplotlib
 
-## 🛠️ 6. Project Structure
-│
-├── babay-app/
-│   ├── library/                    # utility functions
-│       └── stat.py
-│       └── baby.py
-│       └── baby_library.py
-│       └── baby_stats_library.py
-│   ├── model/                      # baby model
-│       └── babyName.py                      
-│   ├── names/                      # folder containing .txt and .csv files
-│   ├── pages/                      # app's pages
-│       └── AdminPage.py
-│       └── LoginPage.py
-│       └── MainPage.py
-│       └── UserPage.py
-│   └── requirements.txt
-│   └── generate.sh                 # script to generate JSON files
-│   └── run.sh                      # script to run the app
-│   └── readme.sh
-│
+## 📂 6. roject Structure
+
+```text
+babay-app/
+├── library/                    # Utility functions
+│   ├── stat.py
+│   ├── baby.py
+│   ├── baby_library.py
+│   └── baby_stats_library.py
+├── model/                      # Baby model
+│   └── babyName.py                      
+├── names/                      # Folder containing .txt and .csv files
+├── pages/                      # App's pages
+│   ├── AdminPage.py
+│   ├── LoginPage.py
+│   ├── MainPage.py
+│   └── UserPage.py
+├── requirements.txt
+├── generate.sh                 # Script to generate JSON files
+├── run.sh                      # Script to run the app
+└── readme.sh
+```
+
+---
 
 ## 🛠️ 7. How to run the Baby-app
-1. Clone the repository
-   git clone <repository-url>
-   cd repository
-2. Create and activate virtual environment
-   python3 -m venv venv             (create python environment)
-   source venv/bin/activate         (activate python environment in linux/bash/ubuntu)  
-   or venv\Scripts\activate         (activate python environement in windows) 
-3. Install dependencies
-   pip install -r requirements.txt  (install python packages)
-4. ./generate.sh                    (script to generate JSON files)
-5. ./run.sh                         (script to run baby-app)
 
+### 1. Clone the repository
+```bash
+git clone <repository-url>
+cd repository
+```
+
+### 2. Create and activate virtual environment
+```bash
+# Create python environment
+python3 -m venv venv             
+
+# Activate python environment in Linux/Bash/Ubuntu
+source venv/bin/activate         
+
+# OR activate python environment in Windows
+venv\Scripts\activate            
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Generate data files
+```bash
+./generate.sh
+```
+
+### 5. Run the application
+```bash
+./run.sh
+```
