@@ -3,16 +3,13 @@ from library.baby_stats_library import convert_json_to_babies_stats, convert_txt
 
 # Main Program
 if __name__ == "__main__":
-    input_path = "names/names.csv"
+   
     output_path = "names/output.csv"
     json_file = "names/output.json"
     baby_json_file = "names/babies.json"
     stat_json_file = "names/stats.json"
-    file_paths = ["../names/"]  # List of file paths to upload
 
-    convert_csv_to_json(output_path, baby_json_file)
-    convert_txt_to_json('names', stat_json_file)
-    # babies = convert_json_to_babies(baby_json_file)
-    # stats = convert_json_to_babies_stats(stat_json_file)
-    # name_to_search = "sandra"
+    convert_csv_to_json(output_path, baby_json_file) # Convert CSV to JSON for baby names
+    convert_txt_to_json('names', stat_json_file) # Convert .txt to JSON for baby name stats
+   
   

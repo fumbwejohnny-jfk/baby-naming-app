@@ -1,7 +1,7 @@
 import tkinter as tk
 from pages.LoginPage import LoginPage
 from pages.UserPage import UserPage
-from pages.AdminPage import AdminPage
+
 
 
 class App(tk.Tk):
@@ -21,7 +21,7 @@ class App(tk.Tk):
         self.frames = {}
 
         # initialize all frames and store in the dictionary
-        for F in (LoginPage, AdminPage, UserPage):
+        for F in (LoginPage,  UserPage):
             frame = F(self.container, self)
             self.frames[F] = frame
             frame.grid(row=0, column=0, sticky="nsew")

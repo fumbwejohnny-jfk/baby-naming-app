@@ -1,7 +1,6 @@
 import tkinter as tk
 from model.BabyName import BabyName
 from tkinter import  messagebox
-from pages.AdminPage import  AdminPage
 from pages.UserPage import UserPage
 
 admin = {"username": "Admin", "password": "admin123"}
@@ -52,9 +51,8 @@ class LoginPage(tk.Frame):
         username = req["username"]
         password = req["password"]
         resp = None
-        if username == admin["username"] and password == admin["password"]:
-            resp = {"user": {"username": admin["username"], "is_admin": True}}
-        elif username == user["username"] and password == user["password"]:
+        
+        if username == user["username"] and password == user["password"]:
             resp = {"user": {"username": user["username"], "is_admin": False}}
         else:
             resp = {"detail": "Invalid username or password"}
@@ -78,9 +76,7 @@ class LoginPage(tk.Frame):
         
         if self.client.username is not None:
             self.destroy()
-            if self.client.role == 'Admin':
-                self.controller.show_frame(AdminPage)
-            else:
+            if self.client.role == 'User':
                 self.controller.show_frame(UserPage)
         else:
             messagebox.showerror("Login Failed",  resp.get('message', 'Try again!'))
