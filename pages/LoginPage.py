@@ -1,8 +1,8 @@
 import tkinter as tk
-from BabyNameClient import BabyNameClient
+from model.BabyName import BabyName
 from tkinter import  messagebox
-from AdminPage import  AdminPage
-from UserPage import UserPage
+from pages.AdminPage import  AdminPage
+from pages.UserPage import UserPage
 
 admin = {"username": "Admin", "password": "admin123"}
 user = {"username": "User", "password": "user123"}
@@ -21,7 +21,7 @@ class LoginPage(tk.Frame):
         content.grid(row=0, column=0)        
         # parent.title("Baby Name Application - Login")
         # self.geometry("400x250")
-        self.client = BabyNameClient()
+        self.client = BabyName()
         # self.client.connect()
 
         tk.Label(content, text="Baby Name ", font=("Arial", 30), fg="blue", bg="#d9d9d9").pack(pady=(0,50))

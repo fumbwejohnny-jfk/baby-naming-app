@@ -5,7 +5,7 @@ from tkinter import messagebox
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from BabyNameClient import BabyNameClient
+from model.BabyName import BabyName
 from library.baby_library import convert_json_to_babies, search_baby_meaning
 from library.baby_stats_library import convert_json_to_babies_stats, search_baby_name
 
@@ -14,7 +14,7 @@ class UserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
-        self.client = BabyNameClient()
+        self.client = BabyName()
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 

@@ -1,7 +1,5 @@
 
-import tkinter as tk
-
-class BabyNameClient:
+class BabyName:
     def __init__(self):
         # self.access_token = None
         self.role = None# Store JWT token after login for authenticated requests

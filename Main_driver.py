@@ -1,5 +1,5 @@
 
-from Main_app import App
+from pages.MainPage import App
 
 
 if __name__ == "__main__":

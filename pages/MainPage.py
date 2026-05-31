@@ -1,14 +1,14 @@
 import tkinter as tk
-from LoginPage import LoginPage
-from UserPage import UserPage
-from AdminPage import AdminPage
+from pages.LoginPage import LoginPage
+from pages.UserPage import UserPage
+from pages.AdminPage import AdminPage
 
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
 
-        self.title("Baby Name Application - Main")
+        self.title("Baby Name Application")
         # self.geometry("400x300")
 
         # main container

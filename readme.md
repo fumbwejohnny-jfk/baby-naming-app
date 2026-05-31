@@ -77,4 +77,4 @@ A parent wants to evaluate the name “Liam”
 * **Database:** PostgreSQL 
 * **UI Options:** 
   * Tkinter / PyQt (desktop) 
-  * Or Web UI (Flask / Django + JS charts) 
+  * Numpy, matplotlib
