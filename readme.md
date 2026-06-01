@@ -78,7 +78,7 @@ A parent wants to evaluate the name “Liam”
   * Tkinter / PyQt (desktop) 
   * Numpy, matplotlib
 
-## 📂 6. roject Structure
+## 📂 6. Project Structure
 
 ```text
 babay-app/
