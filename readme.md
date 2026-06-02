@@ -98,7 +98,6 @@ baby-app/
 ├── requirements.txt
 ├── generate.sh                 # Script to generate JSON files
 ├── run.sh                      # Script to run the app
-└── readme.sh
 ```
 
 ---
