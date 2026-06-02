@@ -81,7 +81,7 @@ A parent wants to evaluate the name “Liam”
 ## 📂 6. Project Structure
 
 ```text
-babay-app/
+baby-app/
 ├── library/                    # Utility functions
 │   ├── stat.py
 │   ├── baby.py
