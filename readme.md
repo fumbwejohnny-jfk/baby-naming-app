@@ -144,11 +144,10 @@ For now, the app allows only these credentials.
 ```
 
 ### 🚀 7. Future Improvements
-```
 The app can be used be improved with the following:
 * use a database (eg. PostgreSQL)
 * allow user to create an account
 * allow anyone to log/logout
 * have an admin to create users
 * have admin to upload csv/text files
-```
+
